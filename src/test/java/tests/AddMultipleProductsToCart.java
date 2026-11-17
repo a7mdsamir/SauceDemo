@@ -1,18 +1,28 @@
-//package tests.sauceDemoTestCases;
+package tests;
+
+import base.TestBase;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import pages.LoginPage;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.List;
+
+public class AddMultipleProductsToCart extends TestBase {
+
+    @Test
+    public void testAddMultipleProductsToCart() {
+        productsPage = new LoginPage(driver).loginSuccessfully();
+
+//        driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+//        driver.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt")).click();
 //
-//public class AddMultipleProductsToCart {
-//    @Test
-//    public void testAddMultipleProductsToCart() {
-//        sauceDemoPage.enterUsername("standard_user");
-//        sauceDemoPage.enterPassword("secret_sauce");
-//        sauceDemoPage.clickLogin();
-//
-//        driver.findElement(By.xpath("//div[text()='Sauce Labs Backpack']/following-sibling::button")).click();
-//        driver.findElement(By.xpath("//div[text()='Sauce Labs Bike Light']/following-sibling::button")).click();
-//
-//        driver.findElement(By.className("shopping_cart_link")).click();
-//        List<WebElement> cartItems = driver.findElements(By.className("inventory_item_name"));
-//        Assert.assertEquals(cartItems.size(), 2);
-//    }
-//
-//}
+//        driver.findElement(By.className("shopping_cart_badge")).click();
+//        CheckoutInfoPage = new ProductsPage(driver).addMultipleProductsToCart();
+        checkoutInfoPage = productsPage.addMultipleProductsToCart();
+        List<WebElement> cartItems = driver.findElements(By.className("inventory_item_name"));
+        Assert.assertEquals(cartItems.size(), 2);
+    }
+
+}

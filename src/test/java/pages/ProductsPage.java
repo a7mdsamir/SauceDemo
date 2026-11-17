@@ -1,5 +1,7 @@
 package pages;
 
+import base.PageBase;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,7 +21,7 @@ public class ProductsPage extends PageBase {
     @FindBy(id = "logout_sidebar_link")
     WebElement logoutLink;
 
-    @FindBy(css = "div.product_label")
+    @FindBy(className = "title")
 //    @FindBy(className = "product_label")
     public WebElement productsPageTitle ;
     @FindBy(id = "shopping_cart_container")
@@ -39,6 +41,14 @@ public class ProductsPage extends PageBase {
 
         clickButton(menu);
         clickButton(logoutLink);
+    }
+
+    public CheckoutInfoPage addMultipleProductsToCart() {
+        driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+        driver.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt")).click();
+
+        driver.findElement(By.className("shopping_cart_badge")).click();
+        return new CheckoutInfoPage(driver);
     }
 
 }

@@ -1,1 +1,0 @@
-package tests.sauceDemotests;// Placeholder content for CheckoutTest.java in src/test/java/tests

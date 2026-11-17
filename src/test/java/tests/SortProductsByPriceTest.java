@@ -1,13 +1,16 @@
 package tests;
 
+import base.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import pages.LoginPage;
 import pages.ProductsPage;
 import org.testng.annotations.Test;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,18 +19,12 @@ import java.util.List;
 
 public class SortProductsByPriceTest extends TestBase {
     ProductsPage productsPage ;
-    LoginTest loginTest ;
 
 
     @Test
     public void testSortProductsByPrice() throws InterruptedException {
-        productsPage = new ProductsPage(driver);
-        productsPage.userLogout();
+        productsPage = new LoginPage(driver).loginSuccessfully();
 
-        loginTest = new LoginTest();
-        loginTest.userCanLoginSuccssfully();
-
-        productsPage = new ProductsPage(driver);
         System.out.println("Page Title: " + productsPage.productsPageTitle.getText());
         Assert.assertEquals(productsPage.productsPageTitle.getText() , "Products" , "Page title mismatch!");
 
@@ -51,11 +48,7 @@ public class SortProductsByPriceTest extends TestBase {
         Thread.sleep(2000);
         System.out.println("Dropdown selection validated: " + selectOptions.getFirstSelectedOption().getText());
 
-
-        WebElement sortDropdown = driver.findElement(By.className("product_sort_container"));
-        sortDropdown.click();
-        sortDropdown.findElement(By.xpath("//*[@id=\"inventory_filter_container\"]/select/option[3]")).click();
-        sortDropdown.click();
+        selectOptions.selectByIndex(2); // يختار الخيار الثالث في القائمة (Index 2)
         System.out.println("Dropdown selection validated: " + selectOptions.getFirstSelectedOption().getText());
 
         // Locate all product price elements
@@ -87,7 +80,6 @@ public class SortProductsByPriceTest extends TestBase {
         for (WebElement element : productElements) {
             productNames.add(element.getText().trim()); // Get text and trim whitespace
             System.out.println("element.getText() " + element.getText());
-
         }
 
         // Verify if the product names are in alphabetical order

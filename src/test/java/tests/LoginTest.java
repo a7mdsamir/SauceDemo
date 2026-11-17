@@ -1,34 +1,24 @@
 package tests;
 
+import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
-import pages.ProductsPage;
-
 
 public class LoginTest extends TestBase {
-//    private LoginPage loginPage ;
 
     @Test
     public void userCanLoginSuccssfully() {
-//        productsPage = new ProductsPage(driver);
-//        productsPage.userLogout();
-//        loginPage = new LoginPage(driver);
 
-        loginPage.addUsername("standard_user");
-        loginPage.addPassword("secret_sauce");
-        loginPage.clickLogin();
-        Assert.assertTrue(driver.getCurrentUrl().contains("https://www.saucedemo.com/v1/inventory.html"));
+        productsPage = new LoginPage(driver).loginSuccessfully();
         System.out.println(driver.getCurrentUrl());
+        Assert.assertTrue(driver.getCurrentUrl().contains("https://www.saucedemo.com/inventory.html"));
+
 
     }
 
     @Test
     public void invalidUsername() {
-//        productsPage = new ProductsPage(driver);
-//        productsPage.userLogout();
-//        loginPage = new LoginPage(driver);
-
         loginPage.addUsername("sta");
         loginPage.addPassword("secret_sauce");
         loginPage.clickLogin();
@@ -37,10 +27,6 @@ public class LoginTest extends TestBase {
 
     @Test
     public void invalidPassword() {
-//        productsPage = new ProductsPage(driver);
-//        productsPage.userLogout();
-//        loginPage = new LoginPage(driver);
-
         loginPage.addUsername("standard_user");
         loginPage.addPassword("secret");
         loginPage.clickLogin();
@@ -49,7 +35,6 @@ public class LoginTest extends TestBase {
 
     @Test
     public void emptyPassword() {
-
         loginPage.addUsername("standard_user");
         loginPage.addPassword("");
         loginPage.clickLogin();
